@@ -1,0 +1,11 @@
+# dsh-workspace-session-monitor bundle patch: inserts the plugin row into the
+# web profile roster. The node half (exports ".") is a pure-UI no-op so the
+# plugin appears in the host cordis list; the browser half (exports "./client",
+# declared via dsh.client) renders the per-workspace session-status badge.
+#
+# Requires the additive "sidebar.workspaces.folderStatus" slot seam in
+# @deepseek-ai/dsh-client-ui-workspace (see DESIGN.md §4). Activate with:
+#   dsh plugin --profile web add link:dsh-workspace-session-monitor
+- insert:
+    - id: dsh-workspace-session-monitor
+      name: 'dsh-workspace-session-monitor'

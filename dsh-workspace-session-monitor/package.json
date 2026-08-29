@@ -1,0 +1,49 @@
+{
+  "name": "dsh-workspace-session-monitor",
+  "description": "Workspace session monitor: aggregates per-session pending/running/completed state into a sidebar footer badge and a floating per-workspace panel, so switching between workspaces never hides a forgotten session; an additive core seam (upstream-seam.patch) additionally enables inline folder-row highlighting.",
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-layout"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "keywords": [
+    "deepseek",
+    "harness",
+    "dsh",
+    "dsh-plugin",
+    "workspace",
+    "session",
+    "monitor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevenliu3/dhs-plugins.git",
+    "directory": "dsh-workspace-session-monitor"
+  },
+  "homepage": "https://github.com/kevenliu3/dhs-plugins/tree/main/dsh-workspace-session-monitor",
+  "license": "MIT"
+}
