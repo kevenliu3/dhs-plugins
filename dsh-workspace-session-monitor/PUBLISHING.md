@@ -19,7 +19,7 @@
 ```sh
 # 在干净的临时目录搭 monorepo 骨架
 mkdir -p /tmp/dhs-plugins && cd /tmp/dhs-plugins
-cp -r "dsh-workspace-session-monitor" .
+cp -r /path/to/dsh-workspace-session-monitor .
 cat > .gitignore <<'EOF'
 node_modules/
 *.log
@@ -43,7 +43,7 @@ git push -u origin main
 ## 2. 改 scoped 包名（发布前）
 
 ```sh
-cd "dsh-workspace-session-monitor"
+cd dsh-workspace-session-monitor
 npm pkg set name=@kevenliu3/dsh-workspace-session-monitor
 ```
 
@@ -69,7 +69,7 @@ npm publish --access public
 ```sh
 gh repo fork awesome-dsh-plugin/awesome-dsh-plugin --clone
 cd awesome-dsh-plugin
-cp "dsh-workspace-session-monitor/kevenliu3__dhs-plugins--dsh-workspace-session-monitor.yml" \
+cp kevenliu3__dhs-plugins--dsh-workspace-session-monitor.yml \
    "data/plugins/kevenliu3__dhs-plugins--dsh-workspace-session-monitor.yml"
 npm ci
 node scripts/generate-readme.mjs    # 重新生成两份 README

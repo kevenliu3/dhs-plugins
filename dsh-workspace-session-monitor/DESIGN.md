@@ -335,8 +335,8 @@ for id in ids:
 # 1) 在 monorepo 里对 dsh-client-ui-workspace 打 §4 的 seam，重建前端产物
 pnpm run build
 
-# 2) 安装插件（团队既有约定）
-cd "dsh-workspace-session-monitor"
+# 2) 安装插件
+cd dsh-workspace-session-monitor
 dsh plugin --profile web add link:"$PWD"
 
 # 3) 重启 web
