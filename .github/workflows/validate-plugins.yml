@@ -1,0 +1,40 @@
+name: validate-plugins
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate every plugin manifest
+        run: |
+          set -euo pipefail
+          # Each plugin subdirectory must declare a dsh.bundle manifest
+          # (a cordis.patch.yml beside package.json) to be installable.
+          found=0
+          for dir in */; do
+            [ -d "$dir" ] || continue
+            if [ -f "$dir/package.json" ]; then
+              found=$((found + 1))
+              node -e "JSON.parse(require('fs').readFileSync('$dir/package.json','utf8'))" \
+                || { echo "invalid package.json in $dir"; exit 1; }
+              node -e "
+                const p = require('./$dir/package.json');
+                if (!p.dsh || !p.dsh.bundle || !p.dsh.bundle.patch) {
+                  console.error('$dir: missing dsh.bundle.patch manifest');
+                  process.exit(1);
+                }
+              " || exit 1
+              echo "OK: $dir"
+            fi
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "No plugins found"; exit 1
+          fi
