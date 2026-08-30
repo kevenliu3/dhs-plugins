@@ -1,9 +1,25 @@
 # dhs-plugins
 
-kevenliu3 的 DSH 插件集合（monorepo）。每个子目录是一个可独立安装的插件。
+A monorepo of [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) plugins by [kevenliu3](https://github.com/kevenliu3). Each subdirectory is an independently installable plugin.
 
-## 插件列表
+## Plugins
 
-| 子目录 | 说明 |
+| Subdirectory | Description |
 | --- | --- |
-| [`dsh-workspace-session-monitor`](./dsh-workspace-session-monitor) | 工作区会话监控：侧边栏徽标 + 浮层面板，跨工作区聚合会话的待处理/运行中/已完成状态，点击直达对应会话 |
+| [`dsh-workspace-session-monitor`](./dsh-workspace-session-monitor) | Sidebar badge + floating panel that aggregate per-session pending / running / completed states across workspaces, with one click to open a session. |
+
+## Install
+
+```sh
+# npm (recommended)
+dsh plugin --profile web add @kevenliu3/dsh-workspace-session-monitor
+
+# or install from source
+dsh plugin --profile web add github:kevenliu3/dhs-plugins
+```
+
+Then restart `dsh web`.
+
+## License
+
+[MIT](./LICENSE)
