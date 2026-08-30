@@ -1,5 +1,5 @@
 {
-  "name": "dsh-workspace-session-monitor",
+  "name": "@kevenliu3/dsh-workspace-session-monitor",
   "description": "Workspace session monitor: aggregates per-session pending/running/completed state into a sidebar footer badge and a floating per-workspace panel, so switching between workspaces never hides a forgotten session; an additive core seam (upstream-seam.patch) additionally enables inline folder-row highlighting.",
   "version": "0.1.0",
   "type": "module",
@@ -45,5 +45,8 @@
     "directory": "dsh-workspace-session-monitor"
   },
   "homepage": "https://github.com/kevenliu3/dhs-plugins/tree/main/dsh-workspace-session-monitor",
+  "bugs": {
+    "url": "https://github.com/kevenliu3/dhs-plugins/issues"
+  },
   "license": "MIT"
 }
