@@ -1,7 +1,7 @@
 {
   "name": "@kevenliu3/dsh-workspace-session-monitor",
   "description": "Workspace session monitor: aggregates per-session pending/running/completed state into a sidebar footer badge and a floating per-workspace panel, so switching between workspaces never hides a forgotten session; an additive core seam (upstream-seam.patch) additionally enables inline folder-row highlighting.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "engines": {
     "node": "^22.19.0 || >=24.0.0"
@@ -18,7 +18,9 @@
     },
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-ui-workspace",
         "@deepseek-ai/dsh-client-ui-sidebar",
         "@deepseek-ai/dsh-client-ui-layout"
       ],
