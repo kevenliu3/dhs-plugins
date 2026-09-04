@@ -61,12 +61,32 @@ window.__ModuleLoader__.load({
     ].join("\n");
 
     /**
+     * Whether a pending-interaction kind is one this surface surfaces. In
+     * 0.1.2 the pending interaction was moved out of `SessionSummary` into a
+     * dedicated `SessionPendingInteractionSnapshot` map; the map value carries
+     * a `kind` discriminator, and only the user-blocking kinds count as
+     * "waiting" for the badge. Mirror the workspace browser's filter.
+     */
+    function visiblePendingKind(kind) {
+      switch (kind) {
+        case "approval":
+        case "plan-review":
+        case "question":
+          return kind;
+        default:
+          return;
+      }
+    }
+
+    /**
      * Aggregate session state per workspace. Returns an ordered list of
      * groups: one per real workspace (Host order) plus the ungrouped bucket
      * last. Each group carries the summaries of its pending/running/done
      * sessions. Subagent-origin, archived, and blank sessions are skipped.
+     * @param pendingInteractions - 0.1.2 map of pending UI interactions by
+     *   Session id (from the `useSessionPendingInteraction` root hook).
      */
-    function aggregate(byId, workspaces, archived) {
+    function aggregate(byId, workspaces, archived, pendingInteractions) {
       var archivedSet = archived && archived.length ? new Set(archived) : null;
       var accounted = {};
       var groups = [];
@@ -76,7 +96,10 @@ window.__ModuleLoader__.load({
         if (archivedSet && archivedSet.has(session.id)) return;
         if (session.origin === "subagent") return;
         if (session.blank) return;
-        if (session.pendingInteraction) group.pending.push(session);
+        var pendingKind = pendingInteractions && pendingInteractions.get
+          ? visiblePendingKind(pendingInteractions.get(session.id)?.kind)
+          : undefined;
+        if (pendingKind) group.pending.push(session);
         else if (session.running) group.running.push(session);
         else if (session.completed) group.done.push(session);
       }
@@ -142,6 +165,7 @@ window.__ModuleLoader__.load({
       function Badge(props) {
         var useSessions = props.useSessions;
         var useWorkspaces = props.useWorkspaces;
+        var useSessionPendingInteraction = props.useSessionPendingInteraction;
         var wide = props.wide;
 
         var openPair = useOpen();
@@ -151,10 +175,13 @@ window.__ModuleLoader__.load({
         var byId = useSessions(function (s) { return s.byId; });
         var items = useWorkspaces(function (s) { return s.items; });
         var archived = useWorkspaces(function (s) { return s.archivedSessionIds; });
+        var pendingInter = useSessionPendingInteraction
+          ? useSessionPendingInteraction(function (s) { return s; })
+          : null;
 
         var groups = React.useMemo(
-          function () { return aggregate(byId, items, archived); },
-          [byId, items, archived]
+          function () { return aggregate(byId, items, archived, pendingInter); },
+          [byId, items, archived, pendingInter]
         );
         var totals = totalsOf(groups);
         var total = totals.pending + totals.running + totals.done;
@@ -210,6 +237,7 @@ window.__ModuleLoader__.load({
       function Overlay(props) {
         var useSessions = props.useSessions;
         var useWorkspaces = props.useWorkspaces;
+        var useSessionPendingInteraction = props.useSessionPendingInteraction;
 
         var openPair = useOpen();
         var isOpen = openPair[0];
@@ -220,9 +248,12 @@ window.__ModuleLoader__.load({
         var byId = useSessions(function (s) { return s.byId; });
         var items = useWorkspaces(function (s) { return s.items; });
         var archived = useWorkspaces(function (s) { return s.archivedSessionIds; });
+        var pendingInter = useSessionPendingInteraction
+          ? useSessionPendingInteraction(function (s) { return s; })
+          : null;
         var groups = React.useMemo(
-          function () { return aggregate(byId, items, archived); },
-          [byId, items, archived]
+          function () { return aggregate(byId, items, archived, pendingInter); },
+          [byId, items, archived, pendingInter]
         );
 
         if (!isOpen) return null;

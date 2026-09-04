@@ -47,8 +47,5 @@
     "directory": "dsh-workspace-session-monitor"
   },
   "homepage": "https://github.com/kevenliu3/dhs-plugins/tree/main/dsh-workspace-session-monitor",
-  "bugs": {
-    "url": "https://github.com/kevenliu3/dhs-plugins/issues"
-  },
   "license": "MIT"
 }
