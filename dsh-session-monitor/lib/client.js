@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-  id: "dsh-workspace-session-monitor",
+  id: "dsh-session-monitor",
   factory: (require) => {
     var module = { exports: {} };
     var exports = module.exports;
@@ -8,7 +8,7 @@ window.__ModuleLoader__.load({
     var React = require("react");
 
     /**
-     * dsh-workspace-session-monitor — browser half (npm-friendly, zero-core).
+     * dsh-session-monitor — browser half (npm-friendly, zero-core).
      *
      * Two additive registrations, no @deepseek-ai/dsh-client-ui-workspace
      * changes required:
@@ -299,13 +299,13 @@ window.__ModuleLoader__.load({
 
       slots.inject(FOOTER_SLOT, function () {
         return slots.register(
-          { name: FOOTER_SLOT, id: "dsh-workspace-session-monitor", order: 60, label: "Workspace Session Monitor" },
+          { name: FOOTER_SLOT, id: "dsh-session-monitor", order: 60, label: "Workspace Session Monitor" },
           function (props) { return React.createElement(Badge, props); }
         );
       });
       slots.inject(OVERLAY_SLOT, function () {
         return slots.register(
-          { name: OVERLAY_SLOT, id: "dsh-workspace-session-monitor", label: "Workspace Session Monitor" },
+          { name: OVERLAY_SLOT, id: "dsh-session-monitor", label: "Workspace Session Monitor" },
           function (props) { return React.createElement(Overlay, props); }
         );
       });
@@ -314,7 +314,7 @@ window.__ModuleLoader__.load({
         return function () {
           if (styleTag.parentNode) styleTag.parentNode.removeChild(styleTag);
         };
-      }, "dsh-workspace-session-monitor: style");
+      }, "dsh-session-monitor: style");
     }
 
     exports.apply = apply;

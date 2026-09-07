@@ -6,13 +6,13 @@ A monorepo of [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness
 
 | Subdirectory | Description |
 | --- | --- |
-| [`dsh-workspace-session-monitor`](./dsh-workspace-session-monitor) | Sidebar badge + floating panel that aggregate per-session pending / running / completed states across workspaces, with one click to open a session. |
+| [`dsh-session-monitor`](./dsh-session-monitor) | Sidebar badge + floating panel that aggregate per-session pending / running / completed states across workspaces, with one click to open a session. |
 
 ## Install
 
 ```sh
 # npm (recommended)
-dsh plugin --profile web add @kevenliu3/dsh-workspace-session-monitor
+dsh plugin --profile web add dsh-session-monitor
 
 # or install from source
 dsh plugin --profile web add github:kevenliu3/dhs-plugins

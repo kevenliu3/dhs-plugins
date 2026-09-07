@@ -1,5 +1,5 @@
-url: https://github.com/kevenliu3/dhs-plugins/tree/main/dsh-workspace-session-monitor
-name: kevenliu3/dhs-plugins#dsh-workspace-session-monitor
+url: https://github.com/kevenliu3/dhs-plugins/tree/main/dsh-session-monitor
+name: kevenliu3/dhs-plugins#dsh-session-monitor
 category: session
 description:
   en: 'Sidebar badge and panel that aggregate per-session pending, running, and completed states across workspaces, with one click to open a session.'

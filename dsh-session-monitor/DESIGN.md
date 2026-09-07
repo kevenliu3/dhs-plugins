@@ -1,4 +1,4 @@
-# dsh-workspace-session-monitor — 设计文档
+# dsh-session-monitor — 设计文档
 
 > 目标：监控每个工作区（Workspace）下各会话（Session）的运行/完成状态，当一个会话「已完成」时，在侧边栏把该会话所属的**工作区文件夹行**高亮出来，让用户在跨工作区、跨会话切换时不会漏掉「那个早就跑完、但一直没回来看」的会话。
 
@@ -113,7 +113,7 @@ interface WorkspaceListState {
 - `kind: 'list'`：允许多个插件各自贡献装饰（加法、可叠加），每个条目都收到「当前工作区」的 owner props。
 - `scope: 'root'`：组件能拿到全局 `useSessions` / `useWorkspaces` 钩子。
 
-### 3.2 一个纯客户端插件 `dsh-workspace-session-monitor`
+### 3.2 一个纯客户端插件 `dsh-session-monitor`
 
 - **宿主半**（`lib/index.js`）：空 `apply`（与 `dsh-client-ui-workspace` 同款——只为让插件出现在宿主 cordis 名单里）。
 - **浏览器半**（`lib/client.js`）：注册进 `sidebar.workspaces.folderStatus`，渲染聚合徽标。
@@ -197,7 +197,7 @@ renderFolderStatus: (owner) => renderSlot("sidebar.workspaces.folderStatus", own
 
 ```jsonc
 {
-  "name": "dsh-workspace-session-monitor",
+  "name": "dsh-session-monitor",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -222,8 +222,8 @@ renderFolderStatus: (owner) => renderSlot("sidebar.workspaces.folderStatus", own
 
 ```yaml
 - insert:
-    - id: dsh-workspace-session-monitor
-      name: 'dsh-workspace-session-monitor'
+    - id: dsh-session-monitor
+      name: 'dsh-session-monitor'
 ```
 
 ### 5.3 宿主半 `lib/index.js`
@@ -241,7 +241,7 @@ export { apply };
 
 ```js
 window.__ModuleLoader__.load({
-  id: "dsh-workspace-session-monitor",
+  id: "dsh-session-monitor",
   factory: (require) => {
     var React = require("react");
     var inject = ["slots"];
@@ -335,8 +335,8 @@ for id in ids:
 # 1) 在 monorepo 里对 dsh-client-ui-workspace 打 §4 的 seam，重建前端产物
 pnpm run build
 
-# 2) 安装插件
-cd dsh-workspace-session-monitor
+# 2) 安装插件（团队既有约定）
+cd "/home/fj/Documents/05 skill_agent_plugin/02 dsh-plugins/dsh-session-monitor"
 dsh plugin --profile web add link:"$PWD"
 
 # 3) 重启 web

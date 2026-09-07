@@ -1,4 +1,4 @@
-# dsh-workspace-session-monitor
+# dsh-session-monitor
 
 工作区会话监控插件：把「会话已完成 / 运行中 / 等待处理」聚合起来，避免在多个工作区、多个会话之间切换时漏掉某个跑完的会话。
 
@@ -11,7 +11,7 @@
 
 ```sh
 # npm（推荐）
-dsh plugin --profile web add @kevenliu3/dsh-workspace-session-monitor
+dsh plugin --profile web add @kevenliu3/dsh-session-monitor
 
 # 或从源码安装
 dsh plugin --profile web add github:kevenliu3/dhs-plugins

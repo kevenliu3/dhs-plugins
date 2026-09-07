@@ -1,5 +1,5 @@
 /**
- * dsh-workspace-session-monitor — Host half.
+ * dsh-session-monitor — Host half.
  *
  * Pure UI plugin: the empty apply exists only so the plugin appears in the
  * host cordis roster (load and lifecycle follow the host). The browser half
